@@ -11,39 +11,61 @@ class CovidCases
 
 object CovidCases {
 
+  // User-defined Mapper class that extends Mapper superclass
   class CovidCasesMapper extends Mapper[Object, Text, Text, IntWritable] {
 
+    // Key - state will be text and Value - count will be IntWritable
     val state = new Text()
     val caseCount = new IntWritable()
 
+    // Override the map function
     override def map(key: Object, value: Text, context: Mapper[Object, Text, Text, IntWritable]#Context) : Unit = {
+      // Split the input line by the delimiter
       val line = value.toString().split(",")
+      // Add the state (line[1]) to the variable state
       state.set(line(1))
+      // Add the positive case count (line[3]) to the variable caseCount
       caseCount.set(line(3).toInt)
+      // Write (key: Text, value: IntWritable(count)) to the context
       context.write(state, caseCount)
     }
   }
 
+  // User-defined Reduce class that extends Reducer superclass
   class CovidCasesReducer extends Reducer[Text, IntWritable, Text, IntWritable] {
 
+    // Override the reduce function
     override def reduce(key: Text, values: Iterable[IntWritable], context: Reducer[Text, IntWritable, Text, IntWritable]#Context) : Unit = {
+      // Compute sum
       var sum = values.asScala.foldLeft(0)(_ + _.get)
+      // Write (key: Text, value: IntWritable(sum)) to context
       context.write(key, new IntWritable(sum))
     }
   }
 
   def main(args: Array[String]) : Unit = {
+    // Read the default configuration of the cluster from configuration xml files
     val configuration = new Configuration
+
+    // Initialize the job with default configuration of the cluster
     val job = Job.getInstance(configuration, "Covid Cases")
+
+    // Assign the drive class to the job
     job.setJarByClass(this.getClass)
+
+    // Assign user-defined Mapper and Reducer class
     job.setMapperClass(classOf[CovidCasesMapper])
     job.setReducerClass(classOf[CovidCasesReducer])
+
+    // Set the Key and Value types of the output
     job.setOutputKeyClass(classOf[Text])
     job.setOutputValueClass(classOf[IntWritable])
-//    job.setInputFormatClass(classOf[TextInputFormat])
-//    job.setOutputFormatClass(classOf[TextOutputFormat])
+
+    // Add input and output path from the args
     FileInputFormat.addInputPath(job, new Path(args(0)))
     FileOutputFormat.setOutputPath(job, new Path(args(1)))
+
+    // Exit after completion
     System.exit(if(job.waitForCompletion(true)) 0 else 1)
   }
 }
