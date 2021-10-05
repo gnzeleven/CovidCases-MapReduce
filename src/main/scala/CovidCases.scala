@@ -24,8 +24,8 @@ object CovidCases {
       val line = value.toString().split(",")
       // Add the country (line[2]) to the variable state
       country.set(line(2))
-      // Add the positive case count (line[5]) to the variable caseCount
-      caseCount.set(line(5).toInt)
+      // Add the daily case count (line[5]) to the variable caseCount
+      caseCount.set(if (line(5) == "") 0 else line(5).toInt)
       // Write (key: Text, value: IntWritable(count)) to the context
       context.write(country, caseCount)
     }
