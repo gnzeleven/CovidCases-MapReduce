@@ -1,6 +1,6 @@
 # Covid Cases - MapReduce Example - Scala
 
-This is a simple program that sums up daily new covid cases for each country from Jan, 2020 to Sep, 2021 using MapReduce technique written is Scala.
+This is a simple program that sums up daily new covid cases for each country from Jan, 2020 to Sep, 2021 using MapReduce technique written in Scala.
 
 #### Requirements:
 
