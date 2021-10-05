@@ -29,8 +29,8 @@ This is a simple program that sums up daily new covid cases for each country fro
    
         > clean compile assembly       
         
-  sbt assembly should have assembly.sbt inside the project folder(file should be in the same level as build.properties) and build.sbt in the root folder configured. Assembly will create a fat jar file in the location: target/scala-2.13/CovidCases-assembly-0.1.jar with all the required dependencies.
-  assembly.sbt file should contain - addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.1.0")
+  sbt assembly should have assembly.sbt inside the project folder(file should be in the same level as build.properties) and build.sbt in the root folder configured. Assembly will create a fat jar file in the location: <i>target/scala-2.13/CovidCases-assembly-0.1.jar</i> with all the required dependencies.
+  assembly.sbt file should contain - <i>addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.1.0")</i>
         
 4. In case, you are using [Hortonworks Sandbox VM](https://www.cloudera.com/downloads/hortonworks-sandbox.html), copy the input file and the jar to the VM
 
