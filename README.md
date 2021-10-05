@@ -1,12 +1,16 @@
 # Covid Cases - MapReduce Example - Scala
 
-This is a simple program that sums up daily new covid cases for each country from Jan, 2020 to Sep, 2021 using MapReduce technique 
+This is a simple program that sums up daily new covid cases for each country from Jan, 2020 to Sep, 2021 using MapReduce technique written is Scala.
 
 #### Requirements:
 
 1. sbt 1.5
-2. sbt-assembly 1.1.0
-3. hadoop-core 1.2.1
+2. java sdk >= 8
+3. sbt-assembly 1.1.0
+4. hadoop-core 1.2.1
+5. IntelliJ IDEA
+6. VMWare/VirtualBox
+7. Hortonworks Sandbox VM
 
 #### To get started:
 
@@ -63,7 +67,13 @@ You might want to switch to hdfs as the user(not root or any other user) by runn
 
         > hdfs dfs -text {output_folder_path}/part-r-00000
 
+#### Sample Output:
 
+![img](images/sample-output.PNG)
+
+#### License:
+
+Distributed under the Apache License Version 2.0. See LICENSE.txt for more information.
 
 
 
