@@ -15,19 +15,19 @@ object CovidCases {
   class CovidCasesMapper extends Mapper[Object, Text, Text, IntWritable] {
 
     // Key - state will be text and Value - count will be IntWritable
-    val state = new Text()
+    val country = new Text()
     val caseCount = new IntWritable()
 
     // Override the map function
     override def map(key: Object, value: Text, context: Mapper[Object, Text, Text, IntWritable]#Context) : Unit = {
       // Split the input line by the delimiter
       val line = value.toString().split(",")
-      // Add the state (line[1]) to the variable state
-      state.set(line(1))
-      // Add the positive case count (line[3]) to the variable caseCount
-      caseCount.set(line(3).toInt)
+      // Add the country (line[2]) to the variable state
+      country.set(line(2))
+      // Add the positive case count (line[5]) to the variable caseCount
+      caseCount.set(line(5).toInt)
       // Write (key: Text, value: IntWritable(count)) to the context
-      context.write(state, caseCount)
+      context.write(country, caseCount)
     }
   }
 
